@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitung Luas dan Keliling Persegi Panjang</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .container {
+            width: 300px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="button"], button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="button"]:disabled {
+            background-color: #ccc;
+        }
+
+        .about {
+            text-align: center;
+            color: blue;
+            cursor: pointer;
+        }
+
+        .about:hover {
+            color: red;
+            text-shadow: 0px 0px 8px yellow;
+        }
+
+        #result {
+            margin-top: 20px;
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* CSS untuk about box */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%; 
+            background-color: rgba(0, 0, 0, 0.5); 
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto; 
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .close {
+            color: red;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover, .close:focus {
+            color: black;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Hitung Luas dan Keliling Persegi Panjang</h2>
+
+    <div class="container">
+        <label for="panjang">Panjang:</label>
+        <input type="number" id="panjang" placeholder="Masukkan panjang" autofocus>
+
+        <label for="lebar">Lebar:</label>
+        <input type="number" id="lebar" placeholder="Masukkan lebar">
+
+        <input type="button" id="hitung" value="Hitung" disabled onclick="hitung()">
+
+        <div id="result"></div>
+
+        <br>
+        <div class="about" onmouseover="this.style.color='green'" onmouseout="this.style.color='blue'">
+            Muhammad Noor Firjatullah - C050422013
+        </div>
+
+        <br>
+        <button onclick="showAbout()">About</button>
+    </div>
+
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAbout()">&times;</span>
+            <h3>About</h3>
+            <p>Nama: Muhammad Noor Firjatullah</p>
+            <p>NIM: C050422013</p>
+            <p>Program Studi: Sistem Informasi Kota Cerdas</p>
+        </div>
+    </div>
+
+    <script>
+        // Validasi input
+        const panjangInput = document.getElementById("panjang");
+        const lebarInput = document.getElementById("lebar");
+        const hitungButton = document.getElementById("hitung");
+
+        panjangInput.addEventListener("input", validateInput);
+        lebarInput.addEventListener("input", validateInput);
+
+        function validateInput() {
+            const panjang = parseFloat(panjangInput.value);
+            const lebar = parseFloat(lebarInput.value);
+
+            if (panjang > 0 && lebar > 0) {
+                hitungButton.disabled = false; // Aktifkan tombol jika input valid
+            } else {
+                hitungButton.disabled = true; // Nonaktifkan tombol jika input tidak valid
+            }
+        }
+
+        // Fungsi hitung luas dan keliling
+        function hitung() {
+            const panjang = parseFloat(panjangInput.value);
+            const lebar = parseFloat(lebarInput.value);
+
+            if (isNaN(panjang) || isNaN(lebar) || panjang <= 0 || lebar <= 0) {
+                document.getElementById("result").innerHTML = "<span style='color:red;'>Input harus angka positif!</span>";
+                return;
+            }
+
+            const luas = panjang * lebar;
+            const keliling = 2 * (panjang + lebar);
+
+            document.getElementById("result").innerHTML = `Luas: ${luas} m<sup>2</sup><br>Keliling: ${keliling} m`;
+        }
+
+        // Fungsi modal About
+        function showAbout() {
+            document.getElementById("aboutModal").style.display = "block";
+        }
+
+        function closeAbout() {
+            document.getElementById("aboutModal").style.display = "none";
+        }
+
+        // Fokuskan ke input panjang saat halaman pertama kali dibuka
+        document.getElementById("panjang").focus();
+    </script>
+</body>
+</html>
